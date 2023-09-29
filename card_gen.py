@@ -1,13 +1,15 @@
 import random
+import sys
+
 # BINs provided by the client
-BIN_1 = [] # needs to be 6 ints separated by (,)
+BIN_1 = [4,0,2,0,0,7] # needs to be 6 ints separated by (,)
 BIN_2 = [] # needs to be 6 ints separated by (,)
 # Array to keep the new card number
 card_number=[]
 
 #Append the provided values 
 #Add menu for BIN to be chosen 
-card_number  = BIN_2 + card_number
+card_number  = BIN_1 + card_number
 
 
 
@@ -58,7 +60,7 @@ def checkLuhn(card_number):
     isSecond = False
      
     for i in range(nDigits - 1, -1, -1):
-        d = card_number[i] - 0
+        d = ord(card_number[i]) - ord('0')
      
         if (isSecond == True):
             d = d * 2
@@ -78,24 +80,40 @@ def checkLuhn(card_number):
 
 # Driver code  
 if __name__=="__main__":
-    #print(card_number)
-    final = generate_visa_numbers(card_number)
-    print('Final Number: ' + final)
-    
-    count = 0 
-    valid_card = False
-    while not valid_card:
-        if (checkLuhn(final)):
-            valid_card = True
-            print("This is a valid card")
-            
-        else:
-            valid_card = False
-            count += 1
-            #print(count)
-            print(f'Failed: ', count, ' attempts', end='\r' )
-     
-    
+    menu = """Please select one of the following options:
+                1) Generate VISA card.
+                2) Generate MASTER card.
+                3) Generate AMEX card.
+                4) Verify if existing card is valid-
+
+                Your selection: """
+    welcome = "Lets do some cards: "
+    print(menu)
+
+    user_input= sys.argv[0]
+
+    if user_input == '1':
+        print('Input 1')
+
+
+    # print(card_number)
+    # final = generate_visa_numbers(card_number)
+    # print('Final Number: ' + final)
+    #
+    # count = 0
+    # valid_card = False
+    # while not valid_card:
+    #     if (checkLuhn(final)):
+    #         valid_card = True
+    #         print("This is a valid card: " + final)
+    #
+    #     else:
+    #         valid_card = False
+    #         count += 1
+    #         #print(count)
+    #         print(f'Failed: ', count, ' attempts', end='\r' )
+    #
+    #
 
 #Print the card number generated 
 #print(card_number)
