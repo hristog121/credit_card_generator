@@ -1,5 +1,6 @@
 import random
 import sys
+import os
 
 # BINs provided by the client
 BIN_1 = [4,0,2,0,0,7] # needs to be 6 ints separated by (,)
@@ -84,16 +85,24 @@ if __name__=="__main__":
                 1) Generate VISA card.
                 2) Generate MASTER card.
                 3) Generate AMEX card.
-                4) Verify if existing card is valid-
-
-                Your selection: """
+                4) Verify if existing card is valid."""
     welcome = "Lets do some cards: "
-    print(menu)
-
-    user_input= sys.argv[0]
-
-    if user_input == '1':
-        print('Input 1')
+    while True:
+        print(menu)
+        user_input= input()
+        if user_input == '1':
+            print('Generating VISA')
+        elif user_input=='2':
+            print('Generating MASTER')
+        elif user_input=='3':
+            print('Generating AMEX')
+        elif user_input=='4':
+            card_from_user = input('Enter your card number: ')
+            if (checkLuhn(card_from_user)):
+#               valid_card = True
+                print("This is a valid card: " + card_from_user)
+            else:
+                print('That is NOT a valid card!')
 
 
     # print(card_number)
