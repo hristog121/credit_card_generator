@@ -3,15 +3,18 @@ import sys
 import os
 
 # BINs provided by the client
-BIN_1 = [4,0,2,0,0,7] # needs to be 6 ints separated by (,)
+BIN_1 = [] # needs to be 6 ints separated by (,)
 BIN_2 = [] # needs to be 6 ints separated by (,)
 # Array to keep the new card number
+BIN_VISA = [4,5,3,9]
+BIN_Master = [5,1]
+BIN_AMEX = [3,4]
 card_number=[]
 
 #Append the provided values 
-#Add menu for BIN to be chosen 
-card_number  = BIN_1 + card_number
-
+#Add menu for BIN to be chosen
+int card_number_visa 
+card_number_visa  = BIN_VISA + card_number_visa
 
 
 def generate_visa_numbers(card_number_2):
@@ -22,8 +25,7 @@ def generate_visa_numbers(card_number_2):
 
     new_number = ''
 
-
-    for i in range (0,9):
+    for i in range (0,10):
         rand_num = random.randint(0,9)
         card_number_2.append(rand_num)
     #print(card_number_2)    
@@ -92,6 +94,8 @@ if __name__=="__main__":
         user_input= input()
         if user_input == '1':
             print('Generating VISA')
+            generate_visa_numbers(card_number_visa)
+            print('Visa card number: ' + card_number_visa)
         elif user_input=='2':
             print('Generating MASTER')
         elif user_input=='3':
