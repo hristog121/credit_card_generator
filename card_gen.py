@@ -14,10 +14,15 @@ card_number = []
 # Append the provided values
 # Add menu for BIN to be chosen
 card_number_visa = []
+card_number_master = []
+card_number_amex = []
+
 card_number_visa = BIN_VISA + card_number_visa
+card_number_master = BIN_Master + card_number_master
+card_number_amex = BIN_AMEX + card_number_amex
 
 
-# generate card Numbers
+# Generate card Numbers VISA
 def generate_visa_numbers(card_number_2):
     # print(card_number_2)
     z = 0
