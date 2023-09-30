@@ -1,29 +1,28 @@
 import random
-import sys
-import os
 
-# BINs provided by the client
-BIN_1 = []  # needs to be 6 ints separated by (,)
-BIN_2 = []  # needs to be 6 ints separated by (,)
-# Array to keep the new card number
+# Pre-defined BIN number for the different cards
 BIN_VISA = [4, 5, 3, 9]
-BIN_Master = [5, 1]
-BIN_AMEX = [3, 4]
+BIN_Master = [5, 1, 0, 5]
+BIN_AMEX = [3, 4,8,2]
 card_number = []
 
-# Append the provided values
-# Add menu for BIN to be chosen
+# Initial empty lists
 card_number_visa = []
 card_number_master = []
 card_number_amex = []
 
+# Append the BINs
 card_number_visa = BIN_VISA + card_number_visa
 card_number_master = BIN_Master + card_number_master
 card_number_amex = BIN_AMEX + card_number_amex
 
 
-# Generate card Numbers VISA
-def generate_visa_numbers(card_number_2):
+
+
+# Generate card Numbers VISA & Mastercard & AMEX
+# This is the number after the BIN untill position 15
+# Also it calculates the check digit and appends it to the first 15
+def generate_numbers_rest(card_number_2):
     # print(card_number_2)
     z = 0
     y = 0
@@ -31,7 +30,7 @@ def generate_visa_numbers(card_number_2):
 
     new_number = ''
 
-    for i in range(0, 10):
+    for i in range(len(card_number_2) - 1, 15):
         rand_num = random.randint(0, 9)
         card_number_2.append(rand_num)
     # print(card_number_2)
@@ -87,6 +86,8 @@ def checkLuhn(card_number):
 
 # Driver code
 if __name__ == "__main__":
+
+    # Menu for the user
     menu = """Please select one of the following options:
                 1) Generate VISA card.
                 2) Generate MASTER card.
@@ -94,12 +95,17 @@ if __name__ == "__main__":
                 4) Verify if existing card is valid."""
     welcome = "Lets do some cards: "
 
+    # Print the menu on the CLI
     print(menu)
+
+    # Initialize the counter for failed attempts
     count = 0
+
+    #Take the user input
     user_input = input()
     if user_input == '1':
         print('Generating VISA')
-        generate_visa_numbers(card_number_visa)
+        generate_numbers_rest(card_number_visa)
         # Convert the array to a string
         new = ''.join(map(str, card_number_visa))
         print('Visa card number: ' + new)
@@ -112,40 +118,49 @@ if __name__ == "__main__":
             else:
                 count += 1
                 print(f'Failed: ', count, ' attempts', end='\r')
-                new = generate_visa_numbers(card_number_visa)
+                new = generate_numbers_rest(card_number_visa)
 
     elif user_input == '2':
         print('Generating MASTER')
+        generate_numbers_rest(card_number_master)
+        # Convert the array to a string
+        new = ''.join(map(str, card_number_master))
+        print('Visa card number: ' + new)
+        print('Checking validity.....\n')
+        not_valid = True
+        while not_valid:
+            if checkLuhn(new):
+                print("The card is valid!")
+                break
+            else:
+                count += 1
+                print(f'Failed: ', count, ' attempts', end='\r')
+                new = generate_numbers_rest(card_number_master)
+
     elif user_input == '3':
         print('Generating AMEX')
+        generate_numbers_rest(card_number_amex)
+        
+        # Convert the array to a string
+        new = ''.join(map(str, card_number_amex))
+        print('Visa card number: ' + new)
+        print('Checking validity.....\n')
+        not_valid = True
+        while not_valid:
+            if checkLuhn(new):
+                print("The card is valid!")
+                break
+            else:
+                count += 1
+                print(f'Failed: ', count, ' attempts', end='\r')
+                new = generate_numbers_rest(card_number_amex)
     elif user_input == '4':
         card_from_user = input('Enter your card number: ')
         if checkLuhn(card_from_user):
             # valid_card = True
             print("This is a valid card: " + card_from_user)
         else:
+            # Display the number of failed attempts
             count += 1
             print(f'Failed: ', count, ' attempts', end='\r')
 
-    # print(card_number)
-    # final = generate_visa_numbers(card_number)
-    # print('Final Number: ' + final)
-    #
-    # count = 0
-    # valid_card = False
-    # while not valid_card:
-    #     if (checkLuhn(final)):
-    #         valid_card = True
-    #         print("This is a valid card: " + final)
-    #
-    #     else:
-    #         valid_card = False
-    #         count += 1
-    #         #print(count)
-    #         print(f'Failed: ', count, ' attempts', end='\r' )
-    #
-    #
-
-# Print the card number generated
-# print(card_number)
-# print(len(card_number))
